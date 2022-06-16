@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DB_Optics_core
+namespace DB_Optics_core.Data
 {
     public abstract class BaseDBobject
     {
