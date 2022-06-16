@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DB_Optics_core.Data
 {
-    class Category : BaseDBobject
+    public class Category : BaseDBobject
     {
         public string Name { get; set; }
 

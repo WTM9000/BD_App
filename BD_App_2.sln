@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD_App_2", "BD_App_2\BD_App
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB_Optics_core", "DB_Optics_core\DB_Optics_core.csproj", "{A0EECBCD-B468-4E2F-8459-072D14E5240B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD_Optics_Ifrastructure", "BD_Optics_Ifrastructure\BD_Optics_Ifrastructure.csproj", "{BD7EBC88-4CA9-43F7-9DFF-B5F0C6346AB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A0EECBCD-B468-4E2F-8459-072D14E5240B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0EECBCD-B468-4E2F-8459-072D14E5240B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0EECBCD-B468-4E2F-8459-072D14E5240B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD7EBC88-4CA9-43F7-9DFF-B5F0C6346AB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD7EBC88-4CA9-43F7-9DFF-B5F0C6346AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD7EBC88-4CA9-43F7-9DFF-B5F0C6346AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD7EBC88-4CA9-43F7-9DFF-B5F0C6346AB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

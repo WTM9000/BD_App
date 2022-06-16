@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DB_Optics_core.Data
 {
-    class Warehouse : BaseDBobject
+    public class Warehouse : BaseDBobject
     {
         public string Address { get; set; }
 

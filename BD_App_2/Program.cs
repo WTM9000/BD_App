@@ -1,4 +1,6 @@
 ﻿using System;
+using BD_Optics_Ifrastructure.Repositories;
+using DB_Optics_core.Data;
 
 namespace BD_App_2
 {
@@ -6,38 +8,32 @@ namespace BD_App_2
     {
         static void Main(string[] args)
         {
-            MySql.Data.MySqlClient.MySqlConnection conn;
-            string connectionString;
-
-            try
+            var waresRepository = new WaresRepository();
+            var wares = waresRepository.getAll();
+            Console.WriteLine("Выберете действие: \n" +
+                              "1. Работа с таблицей Wares\n" +
+                              "2. Работа с таблицей Warehouse\n" +
+                              "3. Работа с таблицей Categories\n" +
+                              "4. Аналитические запросы\n");
+            var i = Console.ReadLine();
+            switch(i)
             {
-                connectionString = "server=127.0.0.1;uid=root;pwd=M4SOPMODIIJr;database=optics";
-                conn = new MySql.Data.MySqlClient.MySqlConnection();
-
-                conn.ConnectionString = connectionString;
-
-                conn.Open();
-
-                var command = conn.CreateCommand();
-
-                command.CommandText = "select count(*) from `discount card` where `Expiry date` > curdate() and `Register date` < curdate();";
-
-                var reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    Console.WriteLine($"{reader.GetInt32(0)}");
-                }
-
-                reader.Close();
-
-                command.Dispose();
-
-                conn.Close();
+                case "1":
+                    Console.WriteLine("Выберете действие: \n" +
+                              "1. Чтение данных\n" +
+                              "2. Добавление данных\n" +
+                              "3. Редактирование данных\n" +
+                              "4. Удаление данных\n");
+                    ShowWares(wares);
+                    break;
             }
-            catch (MySql.Data.MySqlClient.MySqlException ex)
+        }
+
+        static void ShowWares(Wares[] wares)
+        {
+            foreach (var ware in wares)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ware);
             }
         }
     }
