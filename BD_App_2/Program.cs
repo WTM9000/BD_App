@@ -11,6 +11,7 @@ namespace BD_App_2
         {
             var waresRepository = new WaresRepository();
             var categoryRepository = new CategoryRepository();
+            var warehouseRepository = new WarehouseRepository();
             string n;
             int deleteID;
             try
@@ -51,6 +52,37 @@ namespace BD_App_2
                             case "4":
                                 deleteID = getDeleteID();
                                 waresRepository.delete(deleteID);
+                                break;
+                        }
+                        break;
+                    case "2":
+                        Console.WriteLine("Выберете действие: \n" +
+                                  "1. Чтение данных\n" +
+                                  "2. Добавление данных\n" +
+                                  "3. Редактирование данных\n" +
+                                  "4. Удаление данных\n");
+                        n = Console.ReadLine();
+                        switch (n)
+                        {
+                            case "1":
+                                var warehouses = warehouseRepository.getAll();
+                                ShowWarehouses(warehouses);
+                                break;
+                            case "2":
+                                var newWarehouse = createWarehouses();
+                                warehouseRepository.add(newWarehouse);
+                                var new_warehouses = warehouseRepository.getAll();
+                                ShowWarehouses(new_warehouses);
+                                break;
+                            case "3":
+                                var updatedWarehouse = updateWarehouses();
+                                warehouseRepository.update(updatedWarehouse);
+                                var updated_Warehouses = warehouseRepository.getAll();
+                                ShowWarehouses(updated_Warehouses);
+                                break;
+                            case "4":
+                                deleteID = getDeleteID();
+                                warehouseRepository.delete(deleteID);
                                 break;
                         }
                         break;
@@ -163,6 +195,39 @@ namespace BD_App_2
             var Name = Console.ReadLine();
 
             return new Category(ID, Name);
+        }
+
+        static void ShowWarehouses(Warehouse[] warehouses)
+        {
+            foreach (var warehouse in warehouses)
+            {
+                Console.WriteLine(warehouse);
+            }
+        }
+
+        static Warehouse createWarehouses()
+        {
+            Console.WriteLine("Введите адрес склада: ");
+            var Address = Console.ReadLine();
+
+            Console.WriteLine("Введите размер склада: ");
+            var Space = int.Parse(Console.ReadLine());
+
+            return new Warehouse(0, Address, Space);
+        }
+
+        static Warehouse updateWarehouses()
+        {
+            Console.WriteLine("Введите идентификатор изменяемой записи: ");
+            var ID = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Введите наименование товара: ");
+            var Address = Console.ReadLine();
+
+            Console.WriteLine("Введите стомимость товара: ");
+            var Space = int.Parse(Console.ReadLine());
+
+            return new Warehouse(ID, Address, Space);
         }
         static int getDeleteID()
         {

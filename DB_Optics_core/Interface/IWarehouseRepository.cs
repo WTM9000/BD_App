@@ -9,6 +9,6 @@ namespace DB_Optics_core.Interface
         Warehouse getByID(int ID);
         Warehouse add(Warehouse entity);
         Warehouse update(Warehouse entity);
-        void delete(Warehouse entity);
+        void delete(int ID);
     }
 }
