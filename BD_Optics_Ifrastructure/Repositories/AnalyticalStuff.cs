@@ -85,15 +85,15 @@ namespace BD_Optics_Ifrastructure.Repositories
 
                 conn.Open();
 
-                using var command = new MySqlCommand("select" + 
-                                                         "category.`Category ID`, Category.`Name`, sum(Quanity)" +
-                                                     "from" +
-                                                         "Category" +
-                                                             "left join" +
-                                                         "Wares on Category.`Category ID` = Wares.`Categoty ID`" +
-                                                             "left join" +
-	                                                     "`Ware - order` on Wares.`Ware ID`=`Ware - order`.`Ware ID`" +
-                                                     "group by Category.`Name`" +
+                using var command = new MySqlCommand("select " + 
+                                                         "category.`Category ID`, Category.`Name`, sum(Quanity) " +
+                                                     "from " +
+                                                         "Category " +
+                                                             "left join " +
+                                                         "Wares on Category.`Category ID` = Wares.`Categoty ID` " +
+                                                             "left join " +
+	                                                     "`Ware-order` on Wares.`Ware ID`=`Ware-order`.`Ware ID` " +
+                                                     "group by Category.`Name` " +
                                                      "order by sum(Quanity) desc; ", conn);
 
                 var reader = command.ExecuteReader();

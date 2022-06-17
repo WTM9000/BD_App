@@ -12,6 +12,7 @@ namespace BD_App_2
             var waresRepository = new WaresRepository();
             var categoryRepository = new CategoryRepository();
             var warehouseRepository = new WarehouseRepository();
+            var analyticalStuff = new AnalyticalStuff();
             string n;
             int deleteID;
             try
@@ -116,6 +117,27 @@ namespace BD_App_2
                                 categoryRepository.delete(deleteID);
                                 break;
                         }    
+                        break;
+                    case "4":
+                        Console.WriteLine("Выберете действие: \n" +
+                                  "1. Вывести список акций магазинов за период\n" +
+                                  "2. Посчитать среднюю ЗП сотрудников магазина\n" +
+                                  "3. Рассчитать рейтинг категорий товаров от наиболее к менее продаваемой категории\n");
+                        n = Console.ReadLine();
+                        switch(n)
+                        {
+                            case "1":
+                                getOfferList(analyticalStuff);
+                                break;
+                            case "2":
+                                var Salary = analyticalStuff.AverSalary();
+                                Console.WriteLine(Salary);
+                                break;
+                            case "3":
+                                var Rating = analyticalStuff.SaleRating();
+                                ShowCategories(Rating);
+                                break;
+                        }
                         break;
                 }
             }
@@ -235,6 +257,22 @@ namespace BD_App_2
             int ID = int.Parse(Console.ReadLine());
 
             return ID;
+        }
+
+        static void getOfferList(AnalyticalStuff analyticalStuff)
+        {
+            Console.WriteLine("Введите первую границу промежутка, фотмат yyyymmdd");
+            int StartDate = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Введите вторую границу промежутка, фотмат yyyymmdd");
+            int EndDate = int.Parse(Console.ReadLine());
+
+            var offerList = analyticalStuff.AvalibleOffers(StartDate, EndDate);
+
+            foreach (var offer in offerList)
+            {
+                Console.WriteLine(offer);
+            }
         }
     }
 }

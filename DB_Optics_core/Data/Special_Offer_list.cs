@@ -12,5 +12,10 @@ namespace DB_Optics_core.Data
         {
             Discount = discount;
         }
+
+        public override string ToString()
+        {
+            return $"{ID}. {Discount}";
+        }
     }
 }
