@@ -68,7 +68,7 @@ namespace BD_Optics_Ifrastructure.Repositories
             }
             catch (Exception ex)
             {
-                throw (ex);
+                Console.WriteLine(ex.Message);
             }
         }
 
