@@ -51,7 +51,25 @@ namespace BD_Optics_Ifrastructure.Repositories
 
         public void delete(int ID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var conn = new MySqlConnection();
+
+                conn.ConnectionString = connString;
+
+                conn.Open();
+
+                using var command = new MySqlCommand("", conn);
+
+                command.CommandText = $"Delete from wares where `Ware ID` = {ID}";
+
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
         }
 
         public Wares[] getAll()
@@ -120,7 +138,33 @@ namespace BD_Optics_Ifrastructure.Repositories
 
         public Wares update(Wares entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var conn = new MySqlConnection();
+
+                conn.ConnectionString = connString;
+
+                conn.Open();
+
+                using var command = new MySqlCommand("", conn);
+
+                command.CommandText = $"Update Wares set `Name` = '{entity.Name}', " +
+                                      $"Cost = {entity.Cost}, " +
+                                      $"`Categoty ID` = {entity.CategoryID}, " +
+                                      $"`Special Offer ID` = {entity.DiscountID} " +
+                                      $"Where `Ware ID` = {entity.ID}";
+
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Wares newWare = getByID(entity.ID);
+
+            return newWare;
         }
     }
 }
