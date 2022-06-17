@@ -1,6 +1,7 @@
 ﻿using System;
 using BD_Optics_Ifrastructure.Repositories;
 using DB_Optics_core.Data;
+using DB_Optics_core.Interface;
 
 namespace BD_App_2
 {
@@ -9,6 +10,8 @@ namespace BD_App_2
         static void Main(string[] args)
         {
             var waresRepository = new WaresRepository();
+            var categoryRepository = new CategoryRepository();
+            string n;
             int deleteID;
             try
             {
@@ -26,7 +29,7 @@ namespace BD_App_2
                                   "2. Добавление данных\n" +
                                   "3. Редактирование данных\n" +
                                   "4. Удаление данных\n");
-                        var n = Console.ReadLine();
+                        n = Console.ReadLine();
                         switch (n)
                         {
                             case "1":
@@ -50,6 +53,37 @@ namespace BD_App_2
                                 waresRepository.delete(deleteID);
                                 break;
                         }
+                        break;
+                    case "3":
+                        Console.WriteLine("Выберете действие: \n" +
+                                  "1. Чтение данных\n" +
+                                  "2. Добавление данных\n" +
+                                  "3. Редактирование данных\n" +
+                                  "4. Удаление данных\n");
+                        n = Console.ReadLine();
+                        switch(n)
+                        {
+                            case "1":
+                                var categories = categoryRepository.getAll();
+                                ShowCategories(categories);
+                                break;
+                            case "2":
+                                var newCategory = createCategories();
+                                categoryRepository.add(newCategory);
+                                var new_categories = categoryRepository.getAll();
+                                ShowCategories(new_categories);
+                                break;
+                            case "3":
+                                var updatedCategory = updateCategories();
+                                categoryRepository.update(updatedCategory);
+                                var updated_Categories = categoryRepository.getAll();
+                                ShowCategories(updated_Categories);
+                                break;
+                            case "4":
+                                deleteID = getDeleteID();
+                                categoryRepository.delete(deleteID);
+                                break;
+                        }    
                         break;
                 }
             }
@@ -104,6 +138,32 @@ namespace BD_App_2
             return new Wares(ID, Name, Cost, CategoryID, DiscountID);
         }
 
+        static void ShowCategories(Category[] categories)
+        {
+            foreach (var category in categories)
+            {
+                Console.WriteLine(category);
+            }
+        }
+
+        static Category createCategories()
+        {
+            Console.WriteLine("Введите наименование категории: ");
+            var Name = Console.ReadLine();
+
+            return new Category(0, Name);
+        }
+
+        static Category updateCategories()
+        {
+            Console.WriteLine("Введите идентификатор изменяемой записи: ");
+            var ID = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Введите наименование товара: ");
+            var Name = Console.ReadLine();
+
+            return new Category(ID, Name);
+        }
         static int getDeleteID()
         {
             Console.WriteLine("Введите идентификатор удаляемой записи");

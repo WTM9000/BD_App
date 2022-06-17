@@ -9,6 +9,6 @@ namespace DB_Optics_core.Interface
         Category getByID(int ID);
         Category add(Category entity);
         Category update(Category entity);
-        void delete(Category entity);
+        void delete(int ID);
     }
 }
