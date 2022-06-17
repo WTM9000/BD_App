@@ -17,10 +17,39 @@ namespace BD_Optics_Ifrastructure.Repositories
 
         public Wares add(Wares entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var conn = new MySqlConnection();
+
+                conn.ConnectionString = connString;
+
+                conn.Open();
+
+                using var command = new MySqlCommand("", conn);
+
+                command.CommandText = $"INSERT INTO `Wares` (`Name`, `Cost`, `Categoty ID`, `Special offer ID`) " +
+                                      $"VALUES ('{entity.Name}', {entity.Cost}, {entity.CategoryID}, {entity.DiscountID});" +
+                                      "SELECT LAST_INSERT_ID();";
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    entity.ID = reader.GetInt32(0);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Wares newWare = getByID(entity.ID);
+
+            return newWare;
         }
 
-        public void delete(Wares entity)
+        public void delete(int ID)
         {
             throw new NotImplementedException();
         }
@@ -38,13 +67,15 @@ namespace BD_Optics_Ifrastructure.Repositories
 
                 using var command = new MySqlCommand("SELECT * FROM Wares " +
                                                      "JOIN Category on wares.`Categoty ID` = category.`Category ID`" +
-                                                     "join `special offer` on wares.`Special offer ID` = `special offer`.`Special offer ID`;", conn);
+                                                     "join `special offer` on wares.`Special offer ID` = `special offer`.`Special offer ID`" +
+                                                     "order by `Ware ID`;", 
+                                                     conn);
 
                 var reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    wares.Add(new Wares(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetString(6), reader.GetInt32(10)));
+                    wares.Add(new Wares(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetString(6), reader.GetFloat(10)));
                 }
 
             }
@@ -57,7 +88,34 @@ namespace BD_Optics_Ifrastructure.Repositories
 
         public Wares getByID(int ID)
         {
-            throw new NotImplementedException();
+            Wares ware = null;
+            try
+            {
+                using var conn = new MySqlConnection();
+
+                conn.ConnectionString = connString;
+
+                conn.Open();
+
+                using var command = new MySqlCommand("SELECT * FROM Wares " +
+                                                     "JOIN Category on wares.`Categoty ID` = category.`Category ID`" +
+                                                     "join `special offer` on wares.`Special offer ID` = `special offer`.`Special offer ID`" +
+                                                     $"WHERE `Ware ID` = {ID};",
+                                                     conn);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    ware = new Wares(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetString(6), reader.GetFloat(10));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return ware;
         }
 
         public Wares update(Wares entity)
